@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Photographs</title>
+
+  <!-- Tailwind CSS Support -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Premium Google Fonts: Playfair Display for scrapbook elegance, Caveat for handwriting, and Inter for UI text -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;500;600;700&family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome Icons for Scrapbook UI Buttons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+            cursive: ['Caveat', 'cursive'],
+          },
+          colors: {
+            scrapbook: {
+              paper: 'var(--sb-paper, #FAF6EE)',
+              ink: 'var(--sb-ink, #2C2520)',
+              accent: 'var(--sb-accent, #D4A373)',
+              accentHover: 'var(--sb-accent-hover, #B88555)',
+              board: 'var(--sb-board, #E0D4C3)',
+              rose: 'var(--sb-rose, #E8A598)',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="font-sans min-h-screen pb-32 select-none relative bg-[#FAF6EE]">
+
+  <div id="interface-onboarding"></div>
+
+  <div id="app-viewport-wrapper" class="transition-all duration-500 ease-in-out transform origin-center min-h-screen flex flex-col w-full max-w-full overflow-x-hidden">
+    <div id="interface-header"></div>
+    <div id="interface-home"></div>
+    <div id="interface-search"></div>
+    <div id="interface-year-album"></div>
+    <div id="interface-profile"></div>
+  </div>
+
+  <div id="interface-bottom-nav"></div>
+  <div id="interface-assets-drawer"></div>
+  <div id="interface-modals"></div>
+
+  <!-- Load every interface first, then load the original JavaScript. -->
+  <script src="/interface-loader.js"></script>
+</body>
+</html>

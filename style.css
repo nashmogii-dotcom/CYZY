@@ -1,0 +1,1287 @@
+
+    :root {
+      --sb-paper: #FAF6EE;
+      --sb-ink: #2C2520;
+      --sb-accent: #D4A373;
+      --sb-accent-hover: #B88555;
+      --sb-board: #E0D4C3;
+      --sb-rose: #E8A598;
+    }
+
+    /* Premium Scrapbook Grid Pattern */
+    .scrapbook-bg-pattern {
+      background-color: var(--sb-paper);
+      background-image: radial-gradient(var(--sb-board) 1px, transparent 1px), radial-gradient(var(--sb-board) 1px, var(--sb-paper) 1px);
+      background-size: 24px 24px;
+      background-position: 0 0, 12px 12px;
+    }
+
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden !important; /* Strictly prevent page-wide horizontal scrolling */
+      overflow-y: auto !important;   /* Force natural vertical scrolling behavior */
+      color: var(--sb-ink);
+    }
+
+    /* Active Scroll Lock State with high specificity to override body overflow rules */
+    html.scroll-locked, body.scroll-locked {
+      overflow-y: hidden !important;
+      height: 100% !important;
+    }
+
+    /* Tab bar sliding transitions */
+    #bottom-tab-bar {
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+    }
+
+    .tab-bar-hidden {
+      transform: translate(-50%, 150px) !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+
+    /* Premium tap outline removals */
+    button, a, input, select, textarea, [onclick] {
+      -webkit-tap-highlight-color: transparent !important;
+      outline: none !important;
+    }
+    button:focus, a:focus, div:focus, select:focus {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    /* Disable vertical scrollbars globally but preserve natural scrolling mechanics */
+    html, body, 
+    .overflow-y-auto, 
+    #drawer-assets-list, 
+    #classmates-modal,
+    #classmates-modal-grid, 
+    #viewer-comments-timeline, 
+    #library-grid-container,
+    #notifications-list,
+    #owners-popup-list,
+    #stack-popup-grid {
+      scrollbar-width: none !important; /* Firefox */
+      -ms-overflow-style: none !important;  /* IE and Edge */
+    }
+
+    /* Specific container-level scroll isolation */
+    .overflow-y-auto, 
+    #drawer-assets-list, 
+    #viewer-comments-timeline, 
+    #library-grid-container,
+    #notifications-list,
+    #owners-popup-list,
+    #stack-popup-grid,
+    #search-view {
+      overscroll-behavior-y: contain !important; /* Prevent background scroll-chaining on overlay scrolls */
+    }
+
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar,
+    .overflow-y-auto::-webkit-scrollbar,
+    #drawer-assets-list::-webkit-scrollbar,
+    #classmates-modal-grid::-webkit-scrollbar,
+    #viewer-comments-timeline::-webkit-scrollbar,
+    #library-grid-container::-webkit-scrollbar,
+    #notifications-list::-webkit-scrollbar,
+    #owners-popup-list::-webkit-scrollbar,
+    #stack-popup-grid::-webkit-scrollbar {
+      display: none !important; /* Safari, Chrome, Opera */
+      width: 0 !important;
+      height: 0 !important;
+    }
+
+    /* Preserve premium styles exclusively for horizontal scrollable grids */
+    .responsive-memory-grid,
+    #search-classmates-scroll-grid,
+    .overflow-x-auto {
+      scrollbar-width: thin !important;
+      scrollbar-color: var(--sb-accent) rgba(44, 37, 32, 0.05) !important;
+      -ms-overflow-style: auto !important;
+    }
+    .responsive-memory-grid::-webkit-scrollbar,
+    #search-classmates-scroll-grid::-webkit-scrollbar,
+    .overflow-x-auto::-webkit-scrollbar {
+      display: block !important;
+      height: 6px !important;
+    }
+    .responsive-memory-grid::-webkit-scrollbar-track,
+    #search-classmates-scroll-grid::-webkit-scrollbar-track,
+    .overflow-x-auto::-webkit-scrollbar-track {
+      background: rgba(44, 37, 32, 0.05) !important;
+    }
+    .responsive-memory-grid::-webkit-scrollbar-thumb,
+    #search-classmates-scroll-grid::-webkit-scrollbar-thumb,
+    .overflow-x-auto::-webkit-scrollbar-thumb {
+      background: var(--sb-accent) !important;
+      border-radius: 10px !important;
+    }
+
+    /* Polaroid structures */
+    .polaroid-card {
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+      background-color: #fff;
+      box-shadow: 3px 5px 15px rgba(44, 37, 32, 0.15);
+    }
+    .polaroid-card:hover {
+      transform: rotate(0deg) scale(1.03) !important;
+      box-shadow: 10px 15px 30px rgba(44, 37, 32, 0.22);
+      z-index: 10;
+    }
+
+    .stack-deck-layer-1 {
+      transform: rotate(4deg) translate(6px, 4px);
+    }
+    .stack-deck-layer-2 {
+      transform: rotate(-3deg) translate(-6px, 2px);
+    }
+
+    @keyframes neonPulse {
+      0% { border-color: #D4A373; box-shadow: 0 0 15px rgba(212, 163, 115, 0.4); }
+      50% { border-color: #E8A598; box-shadow: 0 0 25px rgba(232, 165, 152, 0.5); }
+      100% { border-color: #D4A373; box-shadow: 0 0 15px rgba(212, 163, 115, 0.4); }
+    }
+
+    .neon-favorite {
+      background: linear-gradient(135deg, #fffcf9 0%, #fffcf5 100%) !important;
+      border: 3px solid var(--sb-accent) !important;
+      animation: neonPulse 3s infinite alternate;
+    }
+
+    .glass-nav {
+      background: rgba(250, 246, 238, 0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 2px dashed var(--sb-accent);
+    }
+
+    /* Bounded sliders: avoid horizontal scroll bleed */
+    .responsive-memory-grid {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 1.25rem;
+      padding: 1.75rem 1rem; 
+      scrollbar-width: thin !important; 
+      scrollbar-color: var(--sb-accent) rgba(44, 37, 32, 0.05) !important; 
+    }
+    .responsive-memory-grid::-webkit-scrollbar {
+      display: block !important;
+      height: 6px !important; 
+    }
+    .responsive-memory-grid::-webkit-scrollbar-track {
+      background: rgba(44, 37, 32, 0.05) !important;
+    }
+    .responsive-memory-grid::-webkit-scrollbar-thumb {
+      background: var(--sb-accent) !important;
+    }
+
+    .responsive-memory-grid .polaroid-card {
+      flex: 0 0 250px; 
+      scroll-snap-align: start;
+    }
+
+    @media (min-width: 768px) {
+      .responsive-memory-grid .polaroid-card {
+        flex: 0 0 300px; 
+      }
+    }
+
+    .washi-tape {
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-3deg);
+      width: 80px;
+      height: 24px;
+      background-color: rgba(212, 163, 115, 0.4);
+      background-image: linear-gradient(90deg, rgba(255,255,255,.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.15) 50%, rgba(255,255,255,.15) 75%, transparent 75%, transparent);
+      background-size: 15px 15px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      z-index: 5;
+    }
+
+    .media-container {
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      position: relative;
+    }
+
+    input[type=range].video-timeline {
+      -webkit-appearance: none;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 9999px;
+    }
+    input[type=range].video-timeline::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 6px;
+    }
+    input[type=range].video-timeline::-webkit-slider-thumb {
+      height: 14px;
+      width: 14px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 2px solid #86efac;
+      cursor: pointer;
+      -webkit-appearance: none;
+      margin-top: -4px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+
+    /* Premium styled volume slider input */
+    input[type=range]#viewer-volume-slider {
+      -webkit-appearance: none;
+      height: 4px;
+      border-radius: 9999px;
+      outline: none;
+      background: rgba(255, 255, 255, 0.2);
+    }
+    input[type=range]#viewer-volume-slider::-webkit-slider-thumb {
+      height: 10px;
+      width: 10px;
+      border-radius: 50%;
+      background: #ffffff;
+      cursor: pointer;
+      -webkit-appearance: none;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    }
+
+    .bento-item {
+      opacity: 0;
+      transform: translateY(35px) scale(0.96);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .bento-item.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Tab bar slider styling */
+    .tab-slider-line {
+      position: absolute;
+      bottom: 6px;
+      height: 3px;
+      background-color: var(--sb-accent);
+      border-radius: 9999px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  
+
+/* Direct private media authentication state */
+body.private-direct-route #app-viewport-wrapper,
+body.private-direct-route #interface-bottom-nav,
+body.private-direct-route #interface-assets-drawer,
+body.private-direct-route #interface-modals {
+  filter: blur(12px);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* N Film album */
+.nfilm-album-card { border: 1px solid rgba(44,37,32,.35); min-height: 360px; }
+.nfilm-card-border { position:absolute; inset:7px; border:1px solid rgba(212,163,115,.85); pointer-events:none; z-index:1; }
+.nfilm-card-border::before { content:""; position:absolute; inset:4px; border:1px solid rgba(44,37,32,.25); }
+.nfilm-cover-video { width:100%; height:100%; object-fit:cover; display:block; }
+.nfilm-cover-frame { box-shadow: 0 18px 45px rgba(44,37,32,.16); }
+.nfilm-cover-frame .nfilm-cover-media-layer { position:absolute; inset:0; }
+.nfilm-album-card #nfilm-home-cover img, .nfilm-album-card #nfilm-home-cover video { width:100%; height:100%; object-fit:cover; display:block; }
+.nfilm-page { font-family: Inter, sans-serif; }
+.nfilm-cover-frame { position:relative; background:#171411; border:1px solid rgba(212,163,115,.55); overflow:hidden; }
+.nfilm-cover-frame::after { content:""; position:absolute; inset:8px; border:1px solid rgba(255,255,255,.18); pointer-events:none; }
+.nfilm-video-card { position:relative; background:#faf6ee; border:1px solid rgba(44,37,32,.25); box-shadow:0 10px 30px rgba(44,37,32,.08); }
+.nfilm-video-card::before { content:""; position:absolute; inset:5px; border:1px solid rgba(212,163,115,.45); pointer-events:none; }
+.nfilm-details-panel { border-radius:0 !important; }
+
+/* N Film cover — decorative hand-drawn vine border */
+.nfilm-vine-frame {
+  position:relative;
+  overflow:hidden;
+}
+.nfilm-vine-border {
+  position:absolute;
+  inset:0;
+  z-index:6;
+  pointer-events:none;
+  border:2px solid rgba(212,163,115,.72);
+  box-shadow:inset 0 0 0 7px rgba(44,37,32,.18), inset 0 0 0 9px rgba(255,255,255,.12);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 700' preserveAspectRatio='none'%3E%3Cg fill='none' stroke='%23d4a373' stroke-width='3' stroke-linecap='round' opacity='.9'%3E%3Cpath d='M18 180 C70 90 115 95 155 25 C195 95 240 100 290 18 C340 100 385 92 430 25 C480 105 530 90 580 18 C630 95 680 95 730 22 C780 100 830 90 875 20 C930 100 975 90 1020 28 C1070 105 1125 95 1182 20'/%3E%3Cpath d='M18 520 C70 610 115 605 155 675 C195 605 240 600 290 682 C340 600 385 608 430 675 C480 595 530 610 580 682 C630 605 680 605 730 678 C780 600 830 610 875 680 C930 600 975 610 1020 672 C1070 595 1125 605 1182 680'/%3E%3Cpath d='M120 18 C35 70 35 130 18 180 M1080 18 C1165 70 1165 130 1182 180 M18 520 C35 570 35 630 120 682 M1182 520 C1165 570 1165 630 1080 682'/%3E%3C/g%3E%3Cg fill='%23d4a373' opacity='.82'%3E%3Cpath d='M120 105c-30-28-52-12-20 10 25 18 45 8 20-10zm55-38c-18-30-45-25-28 7 14 25 37 20 28-7zm115 2c18-30 45-25 28 7-14 25-37 20-28-7zm-55 38c30-28 52-12 20 10-25 18-45 8-20-10z'/%3E%3Cpath d='M1080 105c30-28 52-12 20 10-25 18-45 8-20-10zm-55-38c18-30 45-25 28 7-14 25-37 20-28-7zm-115 2c-18-30-45-25-28 7 14 25 37 20 28-7zm55 38c-30-28-52-12-20 10 25 18 45 8 20-10z'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:100% 100%;
+}
+.nfilm-vine-frame::after {
+  content:"";
+  position:absolute;
+  inset:11px;
+  z-index:7;
+  border:1px solid rgba(255,255,255,.2);
+  pointer-events:none;
+}
+
+/* N Film home card uses the same scrapbook album-card footprint as year cards, with a full thumbnail. */
+.nfilm-home-album-card { min-height: 0; aspect-ratio: 4 / 3; }
+.nfilm-home-album-card #nfilm-home-cover img,
+.nfilm-home-album-card #nfilm-home-cover video { width:100%; height:100%; object-fit:cover; display:block; }
+
+/* N Film studio redesign */
+.nfilm-cover-frame { position:relative; aspect-ratio:2.59/1; width:100%; background:#171411; border:1px solid rgba(212,163,115,.55); overflow:hidden; border-radius:0 !important; box-shadow:0 18px 45px rgba(44,37,32,.16); }
+.nfilm-cover-frame::before { content:""; position:absolute; inset:8px; border:1px solid rgba(255,255,255,.22); pointer-events:none; z-index:8; }
+.nfilm-cover-frame #nfilm-cover-media, .nfilm-cover-frame #nfilm-cover-media > * { width:100%; height:100%; }
+.nfilm-cover-frame #nfilm-cover-media video { object-fit:contain; background:#000; }
+.nfilm-cover-frame #nfilm-cover-media img { object-fit:cover; }
+.nfilm-video-card { border-radius:1rem; }
+.nfilm-details-panel { border-radius:1rem !important; }
+.nfilm-details-panel button { border-radius:9999px !important; }
+.nfilm-home-album-card { border-radius:1rem; }
+
+/* Final N Film refinements */
+.nfilm-cover-frame {
+  aspect-ratio: 2.59 / 1 !important;
+  border: 4px double var(--sb-accent, #D4A373) !important;
+  border-radius: 0 !important;
+  overflow: hidden;
+}
+.nfilm-cover-frame::before,
+.nfilm-cover-frame::after { display:none !important; }
+.nfilm-cover-frame #nfilm-cover-media video { object-fit: cover !important; object-position: center center !important; background: transparent !important; width:100% !important; height:100% !important; display:block !important; }
+.nfilm-cover-frame #nfilm-cover-media img { object-fit: cover !important; }
+#nfilm-video-grid { grid-template-columns: repeat(2,minmax(0,1fr)) !important; gap: 1rem !important; }
+@media (min-width: 768px) { #nfilm-video-grid { grid-template-columns: repeat(4,minmax(0,1fr)) !important; gap: 1.25rem !important; } }
+.nfilm-video-card { border: 1px solid rgba(44,37,32,.28) !important; border-radius: 1rem !important; box-shadow: 0 10px 28px rgba(44,37,32,.07) !important; overflow:hidden; }
+.nfilm-video-card::before { display:none !important; }
+.nfilm-card-media { border-radius:.75rem !important; }
+html.scroll-locked, body.scroll-locked { overflow:hidden !important; }
+body.scroll-locked { position:fixed !important; left:0; right:0; width:100%; }
+
+/* N Film details: keep the album visibly present behind the modal. */
+#nfilm-details-modal { background: rgba(44,37,32,.35) !important; backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); }
+#nfilm-details-modal .nfilm-details-panel { position: relative; z-index: 2; }
+
+/* Final cover + details-modal fixes */
+.nfilm-cover-frame #nfilm-cover-media,
+.nfilm-cover-frame #nfilm-cover-media > *,
+.nfilm-cover-frame #nfilm-cover-media video {
+  width: 100% !important;
+  height: 100% !important;
+}
+.nfilm-cover-frame #nfilm-cover-media video {
+  object-fit: cover !important;
+  object-position: center center !important;
+  background: transparent !important;
+}
+/* Keep the album fully rendered behind the details dialog. The dialog no longer locks
+   the document into position, which avoids reflow/repaint of the video grid. */
+#nfilm-details-modal {
+  background: rgba(44,37,32,.22) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+#nfilm-details-modal .nfilm-details-panel {
+  opacity: 1 !important;
+}
+
+/* N Film details modal: blur the album, keep it visually present, and prevent the page behind
+   the dialog from scrolling. */
+#nfilm-details-modal {
+  background: rgba(44,37,32,.40) !important;
+  backdrop-filter: blur(10px) saturate(.92) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(.92) !important;
+  overscroll-behavior: none !important;
+  touch-action: none !important;
+}
+#nfilm-details-modal .nfilm-details-panel {
+  max-height: min(88vh, 760px) !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain !important;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+}
+#nfilm-details-modal .nfilm-details-panel::-webkit-scrollbar { width:0; height:0; }
+
+/* N Film album-card metadata thumbnail + glass badge */
+.nfilm-glass-badge {
+  background: rgba(255,255,255,.16) !important;
+  border: 1px solid rgba(255,255,255,.32) !important;
+  backdrop-filter: blur(10px) saturate(1.15) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(1.15) !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,.12);
+}
+/* Home N Film album thumbnail fills the entire rounded album card. */
+.nfilm-home-album-card #nfilm-home-cover img,
+.nfilm-home-album-card #nfilm-home-cover video { object-fit: cover !important; width:100%; height:100%; }
+
+/* ================= N FILM STUDIO THEATER THEME ================= */
+html.nfilm-theater-active,
+body.nfilm-theater-active {
+  background: #080808 !important;
+}
+
+body.nfilm-theater-active #app-viewport-wrapper {
+  background: #080808 !important;
+}
+
+body.nfilm-theater-active #main-header {
+  background: rgba(8,8,8,.96) !important;
+  color: #fff !important;
+  border-bottom: 1px solid rgba(255,255,255,.10) !important;
+  box-shadow: 0 8px 30px rgba(0,0,0,.35) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+}
+body.nfilm-theater-active #header-dynamic-title { color:#fff !important; }
+body.nfilm-theater-active #header-back-arrow {
+  background:#171717 !important;
+  border-color:rgba(255,255,255,.16) !important;
+}
+body.nfilm-theater-active #header-back-arrow i { color:#fff !important; }
+body.nfilm-theater-active #cloudinary-status-badge,
+body.nfilm-theater-active #header-right-actions > a,
+body.nfilm-theater-active #header-right-actions > button {
+  background:#151515 !important;
+  color:#fff !important;
+  border-color:rgba(255,255,255,.12) !important;
+}
+
+body.nfilm-theater-active #bottom-tab-bar {
+  background:rgba(10,10,10,.94) !important;
+  border-color:rgba(255,255,255,.12) !important;
+  box-shadow:0 14px 40px rgba(0,0,0,.55) !important;
+  backdrop-filter:blur(16px) !important;
+  -webkit-backdrop-filter:blur(16px) !important;
+}
+body.nfilm-theater-active #bottom-tab-bar button { color:#fff !important; }
+body.nfilm-theater-active #bottom-tab-bar button:not(.active) { color:rgba(255,255,255,.48) !important; }
+body.nfilm-theater-active .tab-slider-line { display:none !important; }
+
+/* Dark cinema treatment for the N Film workspace and its controls. */
+body.nfilm-theater-active #nfilm-album-workspace {
+  color:#f5f5f5 !important;
+}
+body.nfilm-theater-active #nfilm-album-workspace h1,
+body.nfilm-theater-active #nfilm-album-workspace h2,
+body.nfilm-theater-active #nfilm-album-workspace h3,
+body.nfilm-theater-active #nfilm-album-workspace p,
+body.nfilm-theater-active #nfilm-album-workspace span {
+  color:inherit !important;
+}
+body.nfilm-theater-active #nfilm-cover-date { color:rgba(255,255,255,.68) !important; }
+body.nfilm-theater-active #nfilm-cover-details {
+  background:#fff !important; color:#111 !important; border:1px solid rgba(255,255,255,.25) !important;
+}
+body.nfilm-theater-active #nfilm-cover-watch {
+  background:#171717 !important; color:#fff !important; border-color:rgba(255,255,255,.25) !important;
+}
+body.nfilm-theater-active #nfilm-video-grid .nfilm-video-card {
+  background:#151515 !important;
+  color:#f5f5f5 !important;
+  border-color:rgba(255,255,255,.12) !important;
+  box-shadow:0 14px 35px rgba(0,0,0,.38) !important;
+}
+body.nfilm-theater-active #nfilm-video-grid .nfilm-video-card h3,
+body.nfilm-theater-active #nfilm-video-grid .nfilm-video-card p,
+body.nfilm-theater-active #nfilm-video-grid .nfilm-video-card span { color:inherit !important; }
+body.nfilm-theater-active #nfilm-video-grid .nfilm-details-btn {
+  background:#f4f4f4 !important; color:#111 !important; border-color:rgba(255,255,255,.2) !important;
+}
+body.nfilm-theater-active #nfilm-video-grid .nfilm-watch-btn {
+  background:#000 !important; color:#fff !important; border-color:rgba(255,255,255,.18) !important;
+}
+body.nfilm-theater-active #nfilm-video-grid .text-scrapbook-accent { color:#d8d8d8 !important; }
+body.nfilm-theater-active #nfilm-video-grid .text-scrapbook-ink\/55 { color:rgba(255,255,255,.55) !important; }
+
+/* N Film modal: blur the already-rendered album instead of using backdrop-filter over
+   video elements. This keeps the video cards mounted and visible while the dialog is open. */
+html.nfilm-modal-open,
+body.nfilm-modal-open { overflow:hidden !important; }
+body.nfilm-modal-open #nfilm-album-workspace {
+  filter:blur(10px) !important;
+  transform:translateZ(0);
+}
+#nfilm-details-modal {
+  background:rgba(0,0,0,.58) !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+
+
+/* N FILM DYNAMIC COVER ATMOSPHERE — true page background */
+.nfilm-dynamic-atmosphere {
+  position:absolute !important;
+  top:0 !important;
+  left:50% !important;
+  right:auto !important;
+  width:100vw !important;
+  height:760px;
+  transform:translateX(-50%);
+  overflow:hidden;
+  pointer-events:none !important;
+  z-index:0 !important;
+  background:#000;
+}
+.nfilm-dynamic-atmosphere .nfilm-bg-layer {
+  position:absolute;
+  inset:-12%;
+  opacity:0;
+  transition:opacity 1.15s ease;
+}
+.nfilm-dynamic-atmosphere .nfilm-bg-layer.active { opacity:.72; }
+.nfilm-dynamic-atmosphere video,
+.nfilm-dynamic-atmosphere img {
+  width:100%; height:100%; object-fit:cover;
+  transform:scale(1.28);
+  filter:blur(42px) saturate(1.35) brightness(.48);
+  pointer-events:none !important;
+}
+/* The fade is deliberately long and reaches the exact theater background color. */
+.nfilm-dynamic-atmosphere::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(to bottom,
+    rgba(0,0,0,.06) 0%,
+    rgba(0,0,0,.10) 42%,
+    rgba(0,0,0,.28) 60%,
+    rgba(0,0,0,.62) 76%,
+    rgba(8,8,8,.90) 91%,
+    #080808 100%);
+}
+#nfilm-album-workspace { position:relative; z-index:1; }
+#nfilm-album-workspace > * { position:relative; z-index:2; }
+#nfilm-album-workspace > .nfilm-dynamic-atmosphere { position:absolute !important; z-index:0 !important; }
+#nfilm-album-workspace > .nfilm-cover-frame { margin-top:24px; }
+#nfilm-cover-media .nfilm-cover-slide { position:absolute; inset:0; opacity:0; transition:opacity 1.2s ease; }
+#nfilm-cover-media .nfilm-cover-slide.active { opacity:1; }
+#nfilm-cover-media .nfilm-cover-slide video,
+#nfilm-cover-media .nfilm-cover-slide img { width:100%; height:100%; object-fit:cover; object-position:center; display:block; }
+.nfilm-cover-copy { transition:opacity 1.0s ease, transform 1.0s ease; }
+.nfilm-cover-copy.nfilm-copy-fading { opacity:0; transform:translateY(5px); }
+/* Keep the theater tab compact and viewport-anchored on every screen size. */
+body.nfilm-theater-active #bottom-tab-bar { width:max-content !important; max-width:calc(100vw - 24px) !important; min-width:0 !important; position:fixed !important; left:50% !important; bottom:16px !important; top:auto !important; margin:0 !important; flex:none !important; white-space:nowrap !important; }
+body.nfilm-theater-active #interface-bottom-nav { position:static !important; height:0 !important; }
+/* N Film starts directly at the header's bottom; the hero itself gets its 24px breathing room. */
+body.nfilm-theater-active #nfilm-album-workspace { margin-top:0 !important; }
+body.nfilm-theater-active #nfilm-album-workspace > .nfilm-dynamic-atmosphere {
+  top:-24px !important;
+  left:50% !important;
+  right:auto !important;
+  width:100vw !important;
+  transform:translateX(-50%);
+  margin:0 !important;
+  pointer-events:none !important;
+  z-index:0 !important;
+}
+body.nfilm-theater-active #nfilm-album-workspace > .nfilm-cover-frame,
+body.nfilm-theater-active #nfilm-album-workspace > section:not(.nfilm-cover-frame) {
+  position:relative !important;
+  z-index:2 !important;
+}
+
+/* Contextual bottom navigation */
+#bottom-tab-bar { width:max-content; max-width:calc(100vw - 20px); min-width:0; }
+#context-tab-list { position:relative; }
+.context-tab-btn { white-space:nowrap; }
+.context-tab-btn.active { font-weight:800; }
+#bottom-tab-bar .tab-slider-line { pointer-events:none; z-index:0; }
+#context-tab-list .context-tab-btn { position:relative; z-index:1; }
+
+/* Finder popup */
+.finder-section { background:rgba(255,255,255,.42); border:1px solid rgba(212,163,115,.22); border-radius:18px; padding:14px; }
+.finder-label { display:block; font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.14em; color:#2c2520; }
+.finder-label span { color:rgba(44,37,32,.45); font-weight:700; letter-spacing:0; text-transform:none; }
+.finder-clear { font-size:10px; font-weight:800; color:rgba(44,37,32,.5); }
+.finder-input { width:100%; border:1px solid rgba(212,163,115,.35); border-radius:12px; padding:10px 12px; background:#fff; color:#2c2520; outline:none; }
+.finder-input:focus { border-color:#2c2520; }
+.finder-chip,.finder-choice { border:1px solid rgba(212,163,115,.28); background:#fff; color:#2c2520; border-radius:999px; padding:8px 11px; font-size:11px; font-weight:800; transition:all .18s ease; }
+.finder-chip:hover,.finder-choice:hover { transform:translateY(-1px); border-color:#2c2520; }
+.finder-chip.selected,.finder-choice.selected { background:#2c2520; color:#fff; border-color:#2c2520; }
+#finder-modal {
+  position:fixed !important;
+  inset:0 !important;
+  width:100vw !important;
+  height:100vh !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  padding:16px !important;
+  box-sizing:border-box !important;
+  overscroll-behavior:contain;
+  z-index:2147483000 !important;
+}
+#finder-panel {
+  scrollbar-width:thin;
+  position:relative;
+  margin:0 !important;
+  transform-origin:center center;
+  max-height:calc(100vh - 32px) !important;
+}
+
+/* N Film contextual tabs stay compact and dark with the theater UI. */
+body.nfilm-theater-active #bottom-tab-bar { background:rgba(10,10,10,.94) !important; border-color:rgba(255,255,255,.12) !important; }
+body.nfilm-theater-active .context-tab-btn { color:rgba(255,255,255,.48) !important; }
+body.nfilm-theater-active .context-tab-btn.active { color:#fff !important; }
+
+/* Share/access modal: a closed modal must never remain as an invisible click-blocking layer. */
+#share-access-modal[style*="display: none"] { display: none !important; pointer-events: none !important; visibility: hidden !important; }
+#share-access-modal.opacity-0 { pointer-events: none !important; }
+#share-access-modal:not(.opacity-0) { pointer-events: auto !important; }
+
+/* ================= N FILM CUSTOM PLAYER ================= */
+.nfilm-player-modal{font-family:Inter,sans-serif;isolation:isolate;}
+.nfilm-player-backdrop{background:rgba(0,0,0,.82) !important;backdrop-filter:blur(14px) !important;-webkit-backdrop-filter:blur(14px) !important;}
+.nfilm-player-stage{min-width:0;min-height:0;}
+.nfilm-player-center{min-width:0;min-height:0;}
+.nfilm-player-media{position:relative;display:flex;align-items:center;justify-content:center;width:min(86vw,1180px);height:min(72vh,720px);min-width:0;min-height:0;}
+.nfilm-player-video,.nfilm-player-embed{display:block;width:auto;height:auto;max-width:100%;max-height:100%;aspect-ratio:16/9;background:#050505;object-fit:contain;border:1px solid rgba(255,255,255,.12);box-shadow:0 22px 80px rgba(0,0,0,.6);}
+.nfilm-player-embed{width:min(100%,1100px);height:min(100%,700px);border-radius:4px;}
+.nfilm-player-side-controls{position:absolute;right:max(2px,calc((100vw - min(86vw,1180px))/2 - 54px));bottom:50%;transform:translateY(50%);}
+.nfilm-player-icon-btn{width:42px;height:42px;border:1px solid rgba(255,255,255,.16);background:rgba(10,10,10,.62);color:#fff;border-radius:999px;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 8px 24px rgba(0,0,0,.35);transition:transform .18s,background .18s,border-color .18s;}
+.nfilm-player-icon-btn:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.3);transform:scale(1.05);}
+.nfilm-player-icon-btn:active{transform:scale(.92);}
+.nfilm-player-timeline-wrap{width:42px;display:flex;flex-direction:column;align-items:center;gap:5px;}
+.nfilm-player-time-top{font:9px/1 Inter,sans-serif;color:rgba(255,255,255,.72);white-space:nowrap;writing-mode:vertical-rl;transform:rotate(180deg);height:76px;display:flex;align-items:center;justify-content:center;}
+.nfilm-player-timeline-track{position:relative;width:6px;height:190px;border-radius:999px;background:rgba(255,255,255,.13);overflow:visible;}
+.nfilm-player-loaded{position:absolute;left:0;bottom:0;width:0;height:100%;border-radius:999px;background:rgba(255,255,255,.32);pointer-events:none;}
+#nfilm-player-timeline{position:absolute;left:50%;top:50%;width:190px;height:6px;transform:translate(-50%,-50%) rotate(-90deg);appearance:none;-webkit-appearance:none;background:transparent;cursor:pointer;}
+#nfilm-player-timeline::-webkit-slider-runnable-track{height:6px;border-radius:999px;background:linear-gradient(to right,rgba(255,255,255,.92) 0 var(--nfilm-progress,0%),rgba(255,255,255,.13) var(--nfilm-progress,0%) 100%);}
+#nfilm-player-timeline::-moz-range-track{height:6px;border-radius:999px;background:rgba(255,255,255,.13);}
+#nfilm-player-timeline::-moz-range-progress{height:6px;border-radius:999px;background:rgba(255,255,255,.92);}
+#nfilm-player-timeline::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;margin-top:-3px;border-radius:50%;background:#fff;box-shadow:0 0 0 2px rgba(255,255,255,.14);}
+#nfilm-player-timeline::-moz-range-thumb{width:12px;height:12px;border:0;border-radius:50%;background:#fff;}
+.nfilm-player-volume-slider-wrap{width:0;height:0;overflow:hidden;opacity:0;transition:all .2s;display:flex;align-items:center;justify-content:center;}
+.nfilm-player-volume-slider-wrap.open{width:42px;height:110px;opacity:1;overflow:visible;}
+#nfilm-player-volume{width:90px;height:5px;transform:rotate(-90deg);appearance:none;-webkit-appearance:none;background:rgba(255,255,255,.14);border-radius:999px;cursor:pointer;}
+#nfilm-player-volume::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:#fff;}
+#nfilm-player-volume::-moz-range-thumb{width:12px;height:12px;border:0;border-radius:50%;background:#fff;}
+.nfilm-player-bottom-bar{display:flex;align-items:center;justify-content:center;gap:7px;padding:7px 9px;border:1px solid rgba(255,255,255,.13);background:rgba(8,8,8,.58);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.35);}
+.nfilm-player-bottom-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 12px;border:0;border-radius:10px;background:transparent;color:rgba(255,255,255,.86);font-size:10px;font-weight:700;white-space:nowrap;transition:background .18s,color .18s,transform .18s;}
+.nfilm-player-bottom-btn:hover{background:rgba(255,255,255,.1);color:#fff;}
+.nfilm-player-bottom-btn:active{transform:scale(.95);}
+.nfilm-player-bottom-btn i{font-size:13px;}
+.nfilm-comments-modal{font-family:Inter,sans-serif;}
+@media(max-width:767px){
+  .nfilm-player-media{width:calc(100vw - 70px);height:58vh;}
+  .nfilm-player-side-controls{right:7px;gap:7px!important;}
+  .nfilm-player-icon-btn{width:38px;height:38px;}
+  .nfilm-player-timeline-track{height:125px;}
+  #nfilm-player-timeline{width:125px;}
+  .nfilm-player-time-top{height:55px;font-size:8px;}
+  .nfilm-player-bottom{bottom:8px!important;left:8px!important;right:8px!important;overflow-x:auto;justify-content:flex-start;}
+  .nfilm-player-bottom-bar{width:max-content;min-width:100%;}
+  .nfilm-player-bottom-btn{padding:8px 9px;font-size:9px;}
+  .nfilm-player-bottom-btn span{display:none;}
+}
+/* Player transport sits just outside the video's lower-right edge. */
+.nfilm-player-side-controls{position:absolute;right:max(8px,calc((100vw - min(86vw,1180px))/2));bottom:max(74px,calc((100vh - min(72vh,720px))/2 + 8px));transform:none;flex-direction:row!important;align-items:center;gap:8px!important;padding:7px 8px;border:1px solid rgba(255,255,255,.13);background:rgba(8,8,8,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:13px;box-shadow:0 10px 30px rgba(0,0,0,.35);}
+.nfilm-player-timeline-wrap{width:min(240px,25vw);display:flex;flex-direction:row;align-items:center;gap:7px;}
+.nfilm-player-time-top{writing-mode:initial;transform:none;width:auto;height:auto;display:block;font-size:9px;}
+.nfilm-player-timeline-track{width:100%;height:6px;border-radius:999px;background:rgba(255,255,255,.13);overflow:visible;position:relative;}
+.nfilm-player-loaded{left:0;top:0;bottom:auto;width:0;height:100%;}
+#nfilm-player-timeline{left:0;top:0;width:100%;height:6px;transform:none;}
+@media(max-width:767px){
+  .nfilm-player-side-controls{right:8px;bottom:72px;padding:6px;gap:5px!important;}
+  .nfilm-player-timeline-wrap{width:min(145px,38vw);gap:5px;}
+  .nfilm-player-time-top{font-size:8px;}
+  .nfilm-player-icon-btn{width:36px;height:36px;}
+}
+
+/* N Film player final control placement + modal stacking fixes */
+.nfilm-player-modal{z-index:2147481000 !important;}
+.nfilm-player-stage{z-index:2147481001 !important;}
+.nfilm-player-media{position:relative !important;}
+.nfilm-player-side-controls{
+  position:absolute !important;
+  right:12px !important;
+  bottom:12px !important;
+  left:auto !important;
+  top:auto !important;
+  transform:none !important;
+  display:flex !important;
+  flex-direction:row !important;
+  align-items:center !important;
+  gap:7px !important;
+  width:auto !important;
+  padding:7px !important;
+  border:1px solid rgba(255,255,255,.16) !important;
+  background:rgba(5,5,5,.58) !important;
+  backdrop-filter:blur(14px) !important;
+  -webkit-backdrop-filter:blur(14px) !important;
+  border-radius:12px !important;
+  z-index:20 !important;
+}
+.nfilm-player-timeline-wrap{width:min(260px,28vw) !important;}
+.nfilm-player-volume-card{
+  position:relative !important;
+  width:0 !important;
+  height:42px !important;
+  overflow:visible !important;
+  flex:0 0 0 !important;
+}
+.nfilm-player-volume-slider-wrap{
+  position:absolute !important;
+  right:0 !important;
+  bottom:48px !important;
+  width:44px !important;
+  height:116px !important;
+  padding:8px !important;
+  box-sizing:border-box !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  background:rgba(5,5,5,.76) !important;
+  border:1px solid rgba(255,255,255,.16) !important;
+  border-radius:12px !important;
+  backdrop-filter:blur(14px) !important;
+  -webkit-backdrop-filter:blur(14px) !important;
+  opacity:0 !important;
+  pointer-events:none !important;
+  transform:translateY(5px) !important;
+  transition:opacity .18s,transform .18s !important;
+}
+.nfilm-player-volume-slider-wrap.open{
+  opacity:1 !important;
+  pointer-events:auto !important;
+  transform:translateY(0) !important;
+  width:44px !important;
+  height:116px !important;
+}
+.nfilm-player-volume-slider-wrap #nfilm-player-volume{
+  width:90px !important;
+  transform:rotate(-90deg) !important;
+}
+.nfilm-player-embed-controls{
+  position:absolute !important;
+  left:calc(100% + 10px) !important;
+  right:auto !important;
+  top:50% !important;
+  bottom:auto !important;
+  transform:translateY(-50%) !important;
+  display:flex !important;
+  flex-direction:column !important;
+  gap:8px !important;
+  z-index:20 !important;
+}
+.nfilm-player-embed-controls.hidden{display:none !important;}
+#share-access-modal{z-index:2147482000 !important;}
+#nfilm-details-modal{z-index:2147482100 !important;}
+#nfilm-comments-modal{z-index:2147482200 !important;}
+#nfilm-comments-modal > *{position:relative;z-index:1;}
+@media(max-width:767px){
+  .nfilm-player-side-controls{right:8px !important;bottom:8px !important;padding:6px !important;gap:5px !important;}
+  .nfilm-player-timeline-wrap{width:min(145px,38vw) !important;}
+  .nfilm-player-embed-controls{left:calc(100% + 6px) !important;gap:5px !important;}
+  .nfilm-player-volume-slider-wrap{bottom:43px !important;}
+}
+
+/* N Film player: transport controls remain mounted while the media source is replaced. */
+.nfilm-player-media{position:relative !important;overflow:visible !important;}
+.nfilm-player-video,.nfilm-player-embed{position:relative;z-index:1;}
+.nfilm-player-side-controls{z-index:25 !important;}
+.nfilm-player-embed-controls{z-index:25 !important;}
+/* Native fullscreen belongs to the media itself, never the surrounding web-player shell. */
+.nfilm-player-video:fullscreen{width:100vw !important;height:100vh !important;max-width:none !important;max-height:none !important;object-fit:contain !important;background:#000 !important;border:0 !important;}
+.nfilm-player-video:-webkit-full-screen{width:100vw !important;height:100vh !important;max-width:none !important;max-height:none !important;object-fit:contain !important;background:#000 !important;border:0 !important;}
+
+/* N Film player: cloud controls are anchored to the actual rendered video frame. */
+.nfilm-player-video-frame{
+  position:relative !important;
+  width:min(86vw,1180px,calc((100vh - 140px) * 16 / 9)) !important;
+  aspect-ratio:16/9 !important;
+  max-width:100% !important;
+  max-height:100% !important;
+  display:block !important;
+  min-width:0 !important;
+  min-height:0 !important;
+}
+.nfilm-player-video-frame .nfilm-player-video{
+  position:absolute !important;
+  inset:0 !important;
+  width:100% !important;
+  height:100% !important;
+  max-width:none !important;
+  max-height:none !important;
+  object-fit:contain !important;
+}
+.nfilm-player-video-frame .nfilm-player-side-controls{
+  position:absolute !important;
+  right:10px !important;
+  bottom:10px !important;
+  left:auto !important;
+  top:auto !important;
+  z-index:30 !important;
+}
+@media(max-width:767px){
+  .nfilm-player-video-frame{
+    width:calc(100vw - 70px) !important;
+    max-width:calc(100vw - 70px) !important;
+    aspect-ratio:16/9 !important;
+  }
+  .nfilm-player-video-frame .nfilm-player-side-controls{
+    right:7px !important;
+    bottom:7px !important;
+  }
+}
+
+/* Keep Cloudinary controls aligned to the actual 16:9 video bounds. */
+.nfilm-player-video-frame{
+  position:relative !important;
+  width:min(86vw,1180px,calc((100vh - 140px) * 16 / 9)) !important;
+  aspect-ratio:16/9 !important;
+  max-width:100% !important;
+  max-height:100% !important;
+  display:block !important;
+  min-width:0 !important;
+  min-height:0 !important;
+}
+.nfilm-player-video-frame .nfilm-player-video{
+  position:absolute !important;
+  inset:0 !important;
+  width:100% !important;
+  height:100% !important;
+  max-width:none !important;
+  max-height:none !important;
+  object-fit:contain !important;
+}
+.nfilm-player-video-frame .nfilm-player-side-controls{
+  position:absolute !important;
+  right:10px !important;
+  bottom:10px !important;
+  left:auto !important;
+  top:auto !important;
+  z-index:30 !important;
+}
+@media(max-width:767px){
+  .nfilm-player-video-frame{
+    width:calc(100vw - 70px) !important;
+    max-width:calc(100vw - 70px) !important;
+    aspect-ratio:16/9 !important;
+  }
+  .nfilm-player-video-frame .nfilm-player-side-controls{
+    right:7px !important;
+    bottom:7px !important;
+  }
+}
+
+/* ================= N FILM PLAYER FINAL POLISH ================= */
+/* Every source fills the media frame so there are no letterbox bars. */
+.nfilm-player-video-frame .nfilm-player-video,
+.nfilm-player-embed{
+  object-fit:cover !important;
+  background:#000 !important;
+}
+.nfilm-player-video-frame .nfilm-player-video{
+  border:0 !important;
+}
+
+/* Player shift arrow + slideable transport controls. */
+.nfilm-player-shift-btn{
+  width:42px;height:42px;border:1px solid rgba(255,255,255,.16);
+  background:rgba(10,10,10,.62);color:#fff;border-radius:999px;
+  display:flex;align-items:center;justify-content:center;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  box-shadow:0 8px 24px rgba(0,0,0,.35);
+  transition:transform .18s,background .18s,border-color .18s;
+  flex:0 0 auto;
+}
+.nfilm-player-shift-btn:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.3);transform:scale(1.05);}
+.nfilm-player-shift-btn:active{transform:scale(.92);}
+.nfilm-player-stage.player-shift-right .nfilm-player-video-frame{
+  transform:translateX(min(13vw,180px));
+}
+.nfilm-player-video-frame{transition:transform .38s cubic-bezier(.22,.75,.2,1) !important;}
+.nfilm-player-stage.player-shift-right .nfilm-player-side-controls{
+  transform:translateX(min(13vw,180px));
+}
+.nfilm-player-side-controls{transition:transform .38s cubic-bezier(.22,.75,.2,1),opacity .22s !important;}
+
+/* The controls themselves slide with the media; they do not fade away. */
+.nfilm-player-stage.player-controls-hidden .nfilm-player-side-controls,
+.nfilm-player-stage.player-controls-hidden .nfilm-player-embed-controls{
+  transform:translateX(125%) !important;
+  opacity:1 !important;
+}
+
+/* Dark N Film popup surfaces. */
+body.nfilm-theater-active #nfilm-comments-modal,
+body.nfilm-theater-active #share-access-modal,
+body.nfilm-theater-active #nfilm-details-modal{
+  background:rgba(0,0,0,.72) !important;
+  backdrop-filter:blur(14px) !important;
+  -webkit-backdrop-filter:blur(14px) !important;
+}
+body.nfilm-theater-active #nfilm-comments-modal .nfilm-comments-panel,
+body.nfilm-theater-active #share-access-modal .share-access-panel,
+body.nfilm-theater-active #nfilm-details-modal .nfilm-details-panel{
+  background:#111 !important;
+  color:#fff !important;
+  border-color:rgba(255,255,255,.16) !important;
+  transform:translateY(28px) !important;
+  opacity:1 !important;
+  transition:transform .32s cubic-bezier(.22,.75,.2,1) !important;
+}
+body.nfilm-theater-active #nfilm-comments-modal:not(.opacity-0) .nfilm-comments-panel,
+body.nfilm-theater-active #share-access-modal:not(.opacity-0) .share-access-panel,
+body.nfilm-theater-active #nfilm-details-modal:not(.opacity-0) .nfilm-details-panel{
+  transform:translateY(0) !important;
+}
+#nfilm-comments-modal .nfilm-comments-panel .border-b,
+#nfilm-comments-modal .nfilm-comments-panel .border-t,
+#share-access-modal .share-access-panel .border-b,
+#nfilm-details-modal .nfilm-details-panel .border-b{
+  border-color:rgba(255,255,255,.1) !important;
+}
+body.nfilm-theater-active #share-access-modal .share-access-panel > div,
+body.nfilm-theater-active #nfilm-details-modal .nfilm-details-panel > div{
+  color:#fff;
+}
+body.nfilm-theater-active #share-access-modal .share-access-panel .bg-\[\#F1E9DA\],
+body.nfilm-theater-active #nfilm-details-modal .nfilm-details-panel .bg-\[\#F1E9DA\]{background:#171717 !important;}
+body.nfilm-theater-active #share-access-modal .share-access-panel input,
+body.nfilm-theater-active #share-access-modal .share-access-panel label,
+body.nfilm-theater-active #share-access-modal .share-access-panel .bg-white,
+body.nfilm-theater-active #share-access-modal .share-access-panel .bg-scrapbook-paper,
+body.nfilm-theater-active #share-access-modal .share-access-panel .bg-\[\#F1E9DA\]{
+  background-color:#171717 !important;color:#fff !important;
+}
+body.nfilm-theater-active #share-access-modal .share-access-panel p,
+body.nfilm-theater-active #share-access-modal .share-access-panel span,
+body.nfilm-theater-active #nfilm-details-modal .nfilm-details-panel p,
+body.nfilm-theater-active #nfilm-details-modal .nfilm-details-panel span{color:rgba(255,255,255,.68) !important;}
+body.nfilm-theater-active #share-access-modal .share-access-panel h4,
+body.nfilm-theater-active #nfilm-details-modal .nfilm-details-panel h4,
+#nfilm-comments-modal .nfilm-comments-panel h3{color:#fff !important;}
+#nfilm-details-modal .nfilm-details-panel .bg-white\/70{background:rgba(255,255,255,.06) !important;}
+
+/* True slide open/close for popup panels; the backdrop stays blurred instead of fading. */
+#share-access-modal,
+#nfilm-details-modal,
+#nfilm-comments-modal{transition:none !important;}
+#share-access-modal.opacity-0 .share-access-panel,
+#nfilm-details-modal.opacity-0 .nfilm-details-panel,
+#nfilm-comments-modal.opacity-0 .nfilm-comments-panel{transform:translateY(28px) !important;}
+
+@media(max-width:767px){
+  .nfilm-player-shift-btn{width:36px;height:36px;}
+  .nfilm-player-stage.player-shift-right .nfilm-player-video-frame,
+  .nfilm-player-stage.player-shift-right .nfilm-player-side-controls{transform:translateX(7vw);}
+  .nfilm-player-stage.player-controls-hidden .nfilm-player-side-controls,
+  .nfilm-player-stage.player-controls-hidden .nfilm-player-embed-controls{transform:translateX(135%) !important;}
+}
+
+/* N Film details: always render above every album/player stacking context. */
+#nfilm-details-modal{
+  position:fixed !important;
+  inset:0 !important;
+  width:100vw !important;
+  height:100vh !important;
+  z-index:2147483646 !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  padding:16px !important;
+  box-sizing:border-box !important;
+  background:rgba(0,0,0,.72) !important;
+  backdrop-filter:blur(14px) !important;
+  -webkit-backdrop-filter:blur(14px) !important;
+}
+#nfilm-details-modal.opacity-0{pointer-events:none !important;}
+#nfilm-details-modal:not(.opacity-0){pointer-events:auto !important;}
+#nfilm-details-modal .nfilm-details-panel{
+  position:relative !important;
+  z-index:2147483647 !important;
+  width:min(100%,42rem) !important;
+  max-height:calc(100vh - 32px) !important;
+  overflow:auto !important;
+  background:#111 !important;
+  color:#fff !important;
+  opacity:1 !important;
+  transform:translateY(0) scale(1) !important;
+  transition:transform .32s cubic-bezier(.22,.75,.2,1) !important;
+}
+#nfilm-details-modal.opacity-0 .nfilm-details-panel{
+  transform:translateY(28px) scale(.98) !important;
+}
+
+
+/* ================= N FILM TIMELINE ARROW FINAL FIX ================= */
+/* Bare vertical arrow: it only hides/shows the transport controls. The video never moves. */
+.nfilm-player-shift-arrow{
+  position:absolute !important;
+  right:24px !important;
+  bottom:68px !important;
+  width:auto !important;
+  height:auto !important;
+  padding:3px !important;
+  margin:0 !important;
+  border:0 !important;
+  background:transparent !important;
+  color:#fff !important;
+  box-shadow:none !important;
+  border-radius:0 !important;
+  display:flex !important;
+  align-items:center;
+  justify-content:center;
+  z-index:80 !important;
+  cursor:pointer;
+  transform:translateY(0);
+  transition:transform .22s ease, opacity .22s ease;
+}
+.nfilm-player-shift-arrow:hover{background:transparent !important;box-shadow:none !important;color:#fff !important;transform:translateY(-2px) !important;}
+.nfilm-player-shift-arrow:active{background:transparent !important;box-shadow:none !important;transform:translateY(0) !important;}
+.nfilm-player-shift-arrow i{font-size:14px !important;line-height:1;}
+.nfilm-player-stage .nfilm-player-side-controls{transition:opacity .22s ease !important;transform:none !important;}
+.nfilm-player-stage.player-controls-hidden .nfilm-player-side-controls{opacity:0 !important;pointer-events:none !important;transform:none !important;}
+/* Hidden state: arrow travels upward on the Y axis while the controls fade away. */
+.nfilm-player-stage.player-controls-hidden .nfilm-player-shift-arrow{bottom:68px !important;transform:translateY(-42px) !important;}
+.nfilm-player-stage.player-controls-hidden .nfilm-player-shift-arrow:hover{transform:translateY(-44px) !important;}
+@media (max-width:640px){
+  .nfilm-player-shift-arrow{right:18px !important;bottom:62px !important;}
+  .nfilm-player-stage.player-controls-hidden .nfilm-player-shift-arrow{right:18px !important;bottom:62px !important;transform:translateY(-36px) !important;}
+  .nfilm-player-stage.player-controls-hidden .nfilm-player-shift-arrow:hover{transform:translateY(-38px) !important;}
+}
+
+
+/* Lightweight N Film modal motion: quick fade + tiny lift/scale, with matching close motion. */
+@keyframes nfilmPopupFadeIn{from{opacity:0}to{opacity:1}}
+@keyframes nfilmPopupFadeOut{from{opacity:1}to{opacity:0}}
+@keyframes nfilmPopupPanelIn{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes nfilmPopupPanelOut{from{opacity:1;transform:translateY(0) scale(1)}to{opacity:0;transform:translateY(8px) scale(.985)}}
+#nfilm-comments-modal.nfilm-popup-opening,
+#nfilm-details-modal.nfilm-popup-opening,
+#share-access-modal.nfilm-popup-opening{animation:nfilmPopupFadeIn .22s ease-out both;}
+#nfilm-comments-modal.nfilm-popup-closing,
+#nfilm-details-modal.nfilm-popup-closing,
+#share-access-modal.nfilm-popup-closing{animation:nfilmPopupFadeOut .20s ease-in both;}
+#nfilm-comments-modal.nfilm-popup-opening .nfilm-comments-panel,
+#nfilm-details-modal.nfilm-popup-opening .nfilm-details-panel,
+#share-access-modal.nfilm-popup-opening .share-access-panel{animation:nfilmPopupPanelIn .22s ease-out both;}
+#nfilm-comments-modal.nfilm-popup-closing .nfilm-comments-panel,
+#nfilm-details-modal.nfilm-popup-closing .nfilm-details-panel,
+#share-access-modal.nfilm-popup-closing .share-access-panel{animation:nfilmPopupPanelOut .20s ease-in both;}
+@media (prefers-reduced-motion: reduce){
+  #nfilm-comments-modal.nfilm-popup-opening,#nfilm-details-modal.nfilm-popup-opening,#share-access-modal.nfilm-popup-opening,
+  #nfilm-comments-modal.nfilm-popup-closing,#nfilm-details-modal.nfilm-popup-closing,#share-access-modal.nfilm-popup-closing,
+  #nfilm-comments-modal.nfilm-popup-opening .nfilm-comments-panel,#nfilm-details-modal.nfilm-popup-opening .nfilm-details-panel,#share-access-modal.nfilm-popup-opening .share-access-panel,
+  #nfilm-comments-modal.nfilm-popup-closing .nfilm-comments-panel,#nfilm-details-modal.nfilm-popup-closing .nfilm-details-panel,#share-access-modal.nfilm-popup-closing .share-access-panel{animation-duration:.01ms!important;}
+}
+
+/* Final Manage Access modal safety: always mount and display it above the regular viewer. */
+#share-access-modal{
+  position:fixed !important;
+  inset:0 !important;
+  width:100vw !important;
+  height:100vh !important;
+  z-index:2147483647 !important;
+}
+#share-access-modal:not(.opacity-0){
+  display:flex !important;
+  visibility:visible !important;
+  pointer-events:auto !important;
+  opacity:1 !important;
+}
+#share-access-modal:not(.opacity-0) .share-access-panel{
+  pointer-events:auto !important;
+}
+
+/* Regular Memories share/access popup must always use the scrapbook theme. */
+body:not(.nfilm-theater-active) #share-access-modal {
+  background:rgba(0,0,0,.45) !important;
+  backdrop-filter:blur(8px) !important;
+  -webkit-backdrop-filter:blur(8px) !important;
+}
+body:not(.nfilm-theater-active) #share-access-modal .share-access-panel {
+  background:#FAF6EE !important;
+  color:#2C2520 !important;
+  border-color:#D4A373 !important;
+}
+body:not(.nfilm-theater-active) #share-access-modal .share-access-panel > div { color:#2C2520 !important; }
+body:not(.nfilm-theater-active) #share-access-modal .share-access-panel h4,
+body:not(.nfilm-theater-active) #share-access-modal .share-access-panel p,
+body:not(.nfilm-theater-active) #share-access-modal .share-access-panel span,
+body:not(.nfilm-theater-active) #share-access-modal .share-access-panel label { color:#2C2520 !important; }
+body:not(.nfilm-theater-active) #share-access-modal .share-access-panel input,
+body:not(.nfilm-theater-active) #share-access-modal .share-access-panel .bg-white,
+body:not(.nfilm-theater-active) #share-access-modal .share-access-panel .bg-scrapbook-paper,
+body:not(.nfilm-theater-active) #share-access-modal .share-access-panel .bg-\[\#F1E9DA\] {
+  background-color:#F1E9DA !important; color:#2C2520 !important;
+}
+
+
+/* FINAL TAB BAR BEHAVIOR: no underline indicator; active tab uses theme color. */
+.tab-slider-line {
+  display:none !important;
+}
+.context-tab-btn.active {
+  color:var(--sb-accent) !important;
+  font-weight:800 !important;
+}
+body.nfilm-theater-active #bottom-tab-bar button {
+  color:rgba(255,255,255,.48) !important;
+}
+body.nfilm-theater-active #bottom-tab-bar button:not(.active) {
+  color:rgba(255,255,255,.48) !important;
+}
+body.nfilm-theater-active #bottom-tab-bar button.active {
+  color:var(--sb-accent) !important;
+  font-weight:800 !important;
+}
+body.nfilm-theater-active .tab-slider-line {
+  display:none !important;
+}
+
+
+/* FINAL popup stacking/open-state hardening. */
+#notifications-modal, #sandbox-info-modal {
+  position:fixed !important;
+  inset:0 !important;
+  width:100vw !important;
+  height:100vh !important;
+  z-index:2147483000 !important;
+}
+#notifications-modal.opacity-0, #sandbox-info-modal.opacity-0 {
+  pointer-events:none !important;
+}
+#notifications-modal:not(.opacity-0), #sandbox-info-modal:not(.opacity-0) {
+  pointer-events:auto !important;
+  visibility:visible !important;
+}
+/* Dedicated N Film player: dark translucent cinema backdrop, not a light wash. */
+.nfilm-player-modal { background:transparent !important; }
+.nfilm-player-modal .nfilm-player-backdrop {
+  position:absolute !important;
+  inset:0 !important;
+  background:#000 !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+
+
+/* Embedded N Film videos use the external player's own controls.
+   Hide all N Film transport UI: timeline, fullscreen, volume, play/pause, and arrow. */
+.nfilm-player-stage.player-embed-mode #nfilm-player-cloud-controls,
+.nfilm-player-stage.player-embed-mode #nfilm-player-embed-controls,
+.nfilm-player-stage.player-embed-mode #nfilm-player-shift {
+  display:none !important;
+  visibility:hidden !important;
+  pointer-events:none !important;
+}
+
+/* Username suggestions are a full-screen chooser, not a box inside the login card. */
+#onboarding-grid:not(.hidden) {
+  position: fixed !important; inset: 0 !important; z-index: 2147483600 !important;
+  display: block !important; overflow-y: auto !important; padding: 84px 20px 24px !important;
+  background: rgba(250,246,238,.98) !important; color: #2C2520 !important;
+  box-sizing: border-box !important; border: 0 !important; border-radius: 0 !important;
+}
+#onboarding-grid:not(.hidden) button { max-width: 760px; margin: 0 auto; background: transparent; }
+#onboarding-grid:not(.hidden) p { max-width: 760px; margin: 0 auto; }
+.dump-mode #classmate-initial-grid,
+.dump-mode #classmates-modal-grid,
+.dump-mode #viewer-fav-btn,
+.dump-mode .favorite-btn,
+.dump-mode [data-action="favorite"],
+.dump-mode #comment-form,
+.dump-mode #nfilm-comments-modal form,
+.dump-mode .comment-action-row,
+.dump-mode .profile-status-dot,
+.dump-mode .dump-hidden { display: none !important; }
+.dump-mode #classmates-modal { display:none !important; }
+#onboarding-grid:not(.hidden) > div { max-width: 760px !important; margin: 0 auto !important; }
+
+/* Authentication profile upload and four-digit passcode UI */
+.auth-upload-wrap { margin-top: .25rem; }
+.auth-file-input { position:absolute !important; width:1px !important; height:1px !important; padding:0 !important; margin:-1px !important; overflow:hidden !important; clip:rect(0,0,0,0) !important; white-space:nowrap !important; border:0 !important; }
+.auth-upload-button { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.45rem; width:100%; min-height:118px; padding:1.15rem; border:2px dashed #c18b59; border-radius:1.15rem; background:linear-gradient(135deg,rgba(212,163,115,.16),rgba(255,255,255,.94)); color:#2c2520; cursor:pointer; text-align:center; transition:transform .18s ease,background .18s ease,border-color .18s ease; }
+.auth-upload-button:hover { background:rgba(212,163,115,.23); border-color:#8f5b31; transform:translateY(-1px); }
+.auth-upload-button span { font-weight:800; }
+.auth-upload-button small { font-size:.75rem; opacity:.7; }
+.auth-code-boxes { display:flex; justify-content:center; gap:.65rem; width:100%; margin:.25rem 0 .6rem; }
+.auth-code-box { width:clamp(48px,14vw,60px); height:58px; border:1.5px solid rgba(193,139,89,.55); border-radius:14px; background:#fff; color:#2c2520; text-align:center; font-size:1.5rem; font-weight:800; outline:none; box-shadow:0 3px 9px rgba(44,37,32,.06); }
+.auth-code-box:focus { border-color:#b97943; box-shadow:0 0 0 3px rgba(193,139,89,.18); }
+
+/* Animated, step-by-step profile photo creator */
+#onboarding-overlay { touch-action: pan-y; }
+.pfp-wizard-page { width:100%; }
+.pfp-big-circle,.pfp-pass-preview { width:min(62vw,260px); aspect-ratio:1; border-radius:50%; margin:0 auto; overflow:hidden; border:5px solid rgba(193,139,89,.65); background:rgba(255,255,255,.7); box-shadow:0 12px 35px rgba(44,37,32,.14); display:flex; align-items:center; justify-content:center; }
+.pfp-big-circle img,.pfp-pass-preview img { width:100%; height:100%; object-fit:cover; }
+.pfp-editor-stage { position:relative; width:min(82vw,420px); aspect-ratio:1/1; margin:0 auto; overflow:hidden; background:repeating-conic-gradient(#e9e2d8 0% 25%,#f8f4ee 0% 50%) 50%/24px 24px; border:2px solid #b97943; touch-action:none; user-select:none; }
+.pfp-editor-stage img { position:absolute; width:100%; height:100%; object-fit:contain; left:0; top:0; transform-origin:center center; pointer-events:none; }
+.pfp-circle-guide { position:absolute; inset:0; border-radius:50%; border:2px solid rgba(255,255,255,.8); box-shadow:0 0 0 999px rgba(25,20,17,.14); pointer-events:none; }
+.pfp-tool { padding:.6rem .9rem; border:1px solid rgba(193,139,89,.55); border-radius:999px; background:#fff; font-weight:700; }
+.pfp-tool-primary { background:#2c2520; color:#fff; }
+#pfp-wizard-editor-page { touch-action:pan-y; }
+@media (max-width:640px) { #onboarding-overlay { padding:1rem; } .pfp-editor-stage { width:min(84vw,380px); } }
+
+/* Compact selected-account header for login and profile requests */
+.auth-avatar { width:4.25rem; height:4.25rem; border-radius:50%; display:flex; align-items:center; justify-content:center; overflow:hidden; background:#d4a373; color:#fff; border:3px solid rgba(255,255,255,.95); box-shadow:0 5px 18px rgba(44,37,32,.15); font-size:1.65rem; font-weight:900; transition:box-shadow .2s ease,border-color .2s ease; }
+.auth-avatar img { width:100%; height:100%; object-fit:cover; display:block; }
+.auth-avatar-missing { border-color:#facc15; box-shadow:0 0 0 3px rgba(250,204,21,.2),0 0 20px rgba(250,204,21,.75); }
+.auth-avatar-detected { border-color:#22c55e; box-shadow:0 0 0 3px rgba(34,197,94,.18),0 0 20px rgba(34,197,94,.7); }
+.auth-avatar:not(.auth-avatar-missing):not(.auth-avatar-detected) { background:hsl(var(--avatar-hue,32) 48% 48%); }
+#auth-title { overflow-wrap:anywhere; }
+#auth-description { margin-bottom:1.25rem; }
+#auth-login-area { width:100%; }
+#auth-existing-account-area, #auth-create-profile-area { width:100%; }
+#pfp-wizard-passcode-page .auth-code-boxes { margin:.35rem 0 .5rem; }
+#pfp-wizard-passcode-page .pfp-pass-preview { display:none !important; }
+@media (max-width:640px) {
+  .auth-avatar { width:3.8rem; height:3.8rem; }
+  #auth-login-area { padding:1rem; }
+  .auth-code-boxes { gap:.5rem; }
+  #auth-login-area .auth-code-box { width:clamp(44px,16vw,56px); height:54px; }
+}
+
+.auth-avatar-denied { border-color:#ef4444!important; box-shadow:0 0 0 3px rgba(239,68,68,.2),0 0 22px rgba(239,68,68,.8)!important; }
+
+/* Smooth authentication wizard transitions and consistently paired actions */
+#onboarding-overlay > div { animation: authEnter .32s cubic-bezier(.2,.75,.25,1) both; }
+.pfp-wizard-page:not(.hidden) { animation: pfpPageEnter .24s ease-out both; }
+#auth-avatar { transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease; }
+#auth-avatar img, #auth-avatar i { animation: avatarReveal .28s ease-out both; }
+#pfp-wizard-preview-page > .flex:last-of-type { display:flex; flex-direction:row; flex-wrap:nowrap; align-items:center; justify-content:center; gap:.75rem; }
+#pfp-wizard-preview-page #pfp-next { width:auto; }
+#pfp-wizard-preview-page label[for="auth-new-pfp"], #pfp-edit-open { min-width:145px; justify-content:center; }
+#pfp-wizard-passcode-page .flex-row > button { flex:0 1 auto; white-space:nowrap; }
+#auth-login-controls { flex-direction:column; }
+#auth-login-controls > button:not(#auth-forgot-login) { display:inline-flex; }
+#auth-login-controls #auth-forgot-login { order:2; margin-top:.1rem; }
+@keyframes authEnter { from { opacity:0; transform:translateY(8px) scale(.99); } to { opacity:1; transform:translateY(0) scale(1); } }
+@keyframes pfpPageEnter { from { opacity:0; transform:translateY(7px); } to { opacity:1; transform:translateY(0); } }
+@keyframes avatarReveal { from { opacity:0; transform:scale(.9); } to { opacity:1; transform:scale(1); } }
+@media (prefers-reduced-motion: reduce) { #onboarding-overlay > div, .pfp-wizard-page:not(.hidden), #auth-avatar img, #auth-avatar i { animation:none!important; transition:none!important; } }
+@media (max-width:390px) { #pfp-wizard-preview-page label[for="auth-new-pfp"], #pfp-edit-open { min-width:0; padding-left:.85rem; padding-right:.85rem; } #pfp-wizard-passcode-page .flex-row { gap:.5rem; } #pfp-wizard-passcode-page .flex-row button { padding-left:.8rem; padding-right:.8rem; font-size:.9rem; } }
+
+/* Wizard navigation header: circular back, centered step title, rounded next action */
+.pfp-step-header { display:grid; grid-template-columns:44px minmax(0,1fr) auto; align-items:center; gap:.65rem; width:100%; min-height:44px; }
+.pfp-step-header h3 { margin:0; text-align:center; font-size:1rem; line-height:1.2; font-weight:800; color:#2c2520; }
+.pfp-step-back { width:34px; height:34px; display:flex; align-items:center; justify-content:center; border-radius:50%; border:1px solid rgba(193,139,89,.45); background:#fff; color:#2c2520; font-size:1.65rem; line-height:1; font-weight:500; }
+.pfp-step-next { min-width:76px; padding:.68rem 1.15rem; border:0; border-radius:999px; background:#22a447; color:white; font-weight:800; line-height:1; transition:background .18s ease,transform .18s ease; }
+.pfp-step-next:disabled { background:#d7eadb; color:#8aa991; cursor:not-allowed; }
+.pfp-step-next:not(:disabled):active,.pfp-step-back:active { transform:scale(.96); }
+.pfp-step-divider { width:100%; height:1px; background:rgba(193,139,89,.28); margin:.1rem 0 .8rem; }
+.pfp-step-spacer { width:34px; }
+.auth-avatar { width:5rem; height:5rem; font-size:1.9rem; }
+@media (max-width:640px) { .auth-avatar { width:4.5rem; height:4.5rem; } .pfp-step-header { grid-template-columns:42px minmax(0,1fr) auto; gap:.45rem; } .pfp-step-next { min-width:68px; padding:.65rem 1rem; } }
+#auth-login-controls { display:grid; grid-template-columns:auto auto; justify-content:center; align-items:center; }
+#auth-login-controls #auth-forgot-login { grid-column:1 / -1; justify-self:center; }
+
+
+/* Authentication navigation: one consistent header, no duplicate controls or visible scrollbars. */
+#onboarding-overlay { scrollbar-width:none; -ms-overflow-style:none; }
+#onboarding-overlay::-webkit-scrollbar, #auth-login-area::-webkit-scrollbar { display:none; width:0; height:0; }
+#auth-login-area { scrollbar-width:none; -ms-overflow-style:none; }
+.auth-login-step-header { margin-bottom:.1rem; }
+#auth-login-controls:not(.hidden) { display:flex; justify-content:center; width:100%; }
+#auth-login-controls #auth-forgot-login { display:inline-flex; margin:0 auto; }
+.pfp-step-back { position:relative; font-size:0!important; }
+.pfp-step-back::before { content:""; display:block; width:10px; height:10px; border-left:2.5px solid currentColor; border-bottom:2.5px solid currentColor; transform:rotate(45deg) translate(2px,-2px); border-radius:1px; }
+
+/* Keep account-recovery action genuinely hidden until a detected account is selected. */
+#auth-login-controls.hidden { display:none !important; }
+
+/* Keep wizard titles geometrically centered in the card, independent of button widths. */
+.pfp-step-header { position:relative; display:flex; justify-content:space-between; }
+.pfp-step-header h3 { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:calc(100% - 150px); max-width:100%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; pointer-events:none; }
+.pfp-step-header .pfp-step-back, .pfp-step-header .pfp-step-next, .pfp-step-header .pfp-step-spacer { position:relative; z-index:1; flex-shrink:0; }
+.pfp-step-divider { margin:.1rem 0 .8rem !important; }
+#pfp-wizard-forgot-page:not(.hidden) { animation:pfpPageEnter .24s ease-out both; }
+@media (max-width:390px) { .pfp-step-header h3 { width:calc(100% - 120px); font-size:.92rem; } }

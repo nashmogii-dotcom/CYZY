@@ -1,0 +1,4 @@
+/album/* /album/index.html 200
+/home/* /home/index.html 200
+/authenticate/* /authenticate/index.html 200
+/* /index.html 200
